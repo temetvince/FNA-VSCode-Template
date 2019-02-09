@@ -12,7 +12,7 @@ do
     export WINEDEBUG=fixme-all,err-all
 
     # Build the effect
-    wine ~/.wine/drive_c/Program\ Files/Microsoft\ DirectX\ SDK\ \(June\ 2010\)/Utilities/bin/x86/fxc.exe\
+    wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Microsoft\ DirectX\ SDK\ \(June\ 2010\)/Utilities/bin/x86/fxc.exe\
      /T fx_2_0 $file /Fo "`dirname $file`/`basename $file .fx`.fxb"
 
     echo ""
