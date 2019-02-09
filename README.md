@@ -21,9 +21,9 @@ Start new FNA projects quickly and easily with handy setup scripts, a versatile 
 1. Download and unzip the ZIP archive.
 2. Copy+paste the resulting folder to your desired project directory.
 3. Run `./getFNA.sh` (macOS) or `./win_getFNA.ps1` (Windows PowerShell) to download the latest FNA and fnalibs to the directory. (You can run this script again if you want to update either FNA or the libraries at a later point.)
-4. Rename `project_name` to your project's name.
-5. Open the newly-renamed project folder in Visual Studio Code.
-6. Do a Find+Replace for "project_name" to the new name of your project.
+4. Rename `project_name` to your project's name (the folder and the csproj file)
+5. Open the newly-renamed project folder (NOT the root folder!) in Visual Studio Code.
+6. Do a Find+Replace for "project_name" (case sensitive!) to the new name of your project.
 7. Run the "Restore Project" build task.
 8. In `.vscode/preferences.json`, change `omnisharp.autoStart` to `true`. (This will enable autocompletion and Intellisense for your project!)
 
