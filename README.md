@@ -25,7 +25,6 @@ Start new FNA projects quickly and easily with handy setup scripts, a versatile 
 5. Open the newly-renamed project folder (NOT the root folder!) in Visual Studio Code.
 6. Do a Find+Replace for "project_name" (case sensitive!) to the new name of your project.
 7. Run the "Restore Project" build task.
-8. In `.vscode/preferences.json`, change `omnisharp.autoStart` to `true`. (This will enable autocompletion and Intellisense for your project!)
 
 That's it! Now you're ready to build and run the base project!
 
@@ -35,6 +34,9 @@ That's it! Now you're ready to build and run the base project!
 - **Build and Run (Debug/Release):** Builds and runs the project. On MacOS, it runs the output with Mono. On Windows, it runs the output with .NET Framework.
 - **Clean Project:** Cleans the output directories and all their subdirectories.
 - **Build Effects:** Runs `fxc.exe` on all of the `.fx` files found in the Content/ subdirectories and outputs corresponding `.fxb` files that can be loaded through the Content Manager at runtime.
+- **Build Content:** Runs good old MGCB.exe on the Content.mgcb file
+- **Force Build Content:** Force builds the content (MGCB.exe -r)
+
 
 ## License and Credits ##
 FNA VSCode Template is released under the Microsoft Public License.
