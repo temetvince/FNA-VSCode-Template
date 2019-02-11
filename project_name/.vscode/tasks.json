@@ -88,6 +88,28 @@
                 "command": "& ${workspaceFolder}/.vscode/buildEffects.ps1"
             },
             "problemMatcher": "$msCompile"
-        }
+        },
+		
+        {
+            "label": "Build Content",
+            "type": "shell",
+            "group": "build",
+            "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb",
+            "options": {
+                "cwd": "${workspaceFolder}/CompiledContent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "Force Build Content",
+            "type": "shell",
+            "group": "build",
+            "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb -r",
+            "options": {
+                "cwd": "${workspaceFolder}/CompiledContent"
+            },
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

@@ -6,4 +6,12 @@
     // This just circumvents annoying default behavior with the C# extension...
     // If you really like Code Lens, feel free to change this.
     "csharp.referencesCodeLens.enabled": false,
+	
+    "files.exclude": {
+        "obj": true,
+        "bin": true,
+        "CompiledContent/bin": true,
+        "CompiledContent/obj": true,
+        "CompiledContent/.mgstats": true
+    }
 }

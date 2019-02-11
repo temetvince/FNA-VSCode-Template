@@ -92,3 +92,15 @@ fi
 if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
     getLibs
 fi
+
+
+# Rename project
+read -p "Enter the project name to use for your folder and csproj file: " newProjectName
+sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
+sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs
+sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
+sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/tasks.json
+sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/launch.json
+
+mv project_name/project_name.csproj "project_name/$newProjectName.csproj"
+mv project_name "$newProjectName"
