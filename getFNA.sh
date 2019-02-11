@@ -21,7 +21,7 @@ function downloadFNA()
 	echo "Downloading FNA..."
 	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --recursive
 	if [ $? -eq 0 ]; then
-		echo "Finished downloading!"
+		echo "Finished downloading!\n"
 	else
 		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
 	fi
@@ -34,7 +34,7 @@ function updateFNA()
     echo "Updating to the latest git version of FNA..."
 	git -C "$MY_DIR/FNA" pull --recurse-submodules
 	if [ $? -eq 0 ]; then
-		echo "Finished updating!"
+		echo "Finished updating!\n"
 	else
 		echo >&2 "ERROR: Unable to update."
 		exit 1
@@ -100,13 +100,20 @@ if [[ $newProjectName = 'exit' ]]; then
     exit 1
 fi
 
+sed -i '' "s/project_name/$newProjectName/g" project_name.code-workspace
+sed -i '' "s/project_name/$newProjectName/g" project_name.sln
+sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.sln
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
 sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs
 sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
 sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/tasks.json
 sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/launch.json
 
+mv project_name.code-workspace "$newProjectName.code-workspace"
+mv project_name.sln "$newProjectName.sln"
+mv project_name/project_name.sln "project_name/$newProjectName.sln"
 mv project_name/project_name.csproj "project_name/$newProjectName.csproj"
+mv project_name/project_name.csproj.user "project_name/$newProjectName.csproj.user"
 mv project_name "$newProjectName"
 
 git init
@@ -115,7 +122,4 @@ cd Nez.FNA
 git submodule init
 git submodule update
 
-sleep 10
-
-nuget restore Nez.FNA/Nez/Nez.sln
-msbuild Nez.FNA/Nez/Nez.sln
+printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"

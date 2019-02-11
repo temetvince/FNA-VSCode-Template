@@ -112,5 +112,13 @@
             },
             "problemMatcher": "$msCompile"
         },
+
+        {
+            "label": "Open Pipeline Tool",
+            "type": "shell",
+            "group": "build",
+            "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline",
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

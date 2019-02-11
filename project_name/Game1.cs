@@ -1,6 +1,4 @@
-using System;
 using Nez;
-using Microsoft.Xna.Framework;
 
 namespace project_name
 {

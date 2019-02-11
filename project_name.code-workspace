@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "project_name"
+		},
+		{
+			"path": "Nez.FNA/Nez/Nez.Portable"
+		}
+	],
+	"settings": {
+		"omnisharp.autoStart": true,
+		"csharp.referencesCodeLens.enabled": false
+	}
+}
