@@ -95,7 +95,11 @@ fi
 
 
 # Rename project
-read -p "Enter the project name to use for your folder and csproj file: " newProjectName
+read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
+if [[ $newProjectName = 'exit' ]]; then
+    exit 1
+fi
+
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
 sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs
 sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
@@ -104,3 +108,14 @@ sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/launch.json
 
 mv project_name/project_name.csproj "project_name/$newProjectName.csproj"
 mv project_name "$newProjectName"
+
+git init
+git submodule add git@github.com:prime31/Nez.FNA.git
+cd Nez.FNA
+git submodule init
+git submodule update
+
+sleep 10
+
+nuget restore Nez.FNA/Nez/Nez.sln
+msbuild Nez.FNA/Nez/Nez.sln

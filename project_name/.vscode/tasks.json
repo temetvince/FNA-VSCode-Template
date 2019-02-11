@@ -27,6 +27,7 @@
             ],
             "group": "build",
             "problemMatcher": "$msCompile",
+			"dependsOn": "Build Content",
         },
 
         {

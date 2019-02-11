@@ -1,38 +1,27 @@
 using System;
+using Nez;
 using Microsoft.Xna.Framework;
 
 namespace project_name
 {
-    class Game1 : Game
+    class Game1 : Core
     {
-        GraphicsDeviceManager graphics;
-        
-        public Game1()
-        {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-        }
+        public Game1() : base()
+        {}
 
         override protected void Initialize()
         {
             base.Initialize();
-        }
+			
+			var newScene = new Scene();
+            newScene.addRenderer(new DefaultRenderer());
 
-        override protected void LoadContent()
-        {
-            base.LoadContent();
-        }
+            var logo = newScene.content.Load<Microsoft.Xna.Framework.Graphics.Texture2D>("nez-logo-black");
+            newScene.createEntity("logo")
+                .setPosition(Screen.center)
+                .addComponent(new Nez.Sprites.Sprite(logo));
 
-        override protected void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
-        override protected void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            base.Draw(gameTime);
+            scene = newScene;
         }
     }
 }

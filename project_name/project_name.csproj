@@ -11,6 +11,7 @@
   <!-- Reference FNA project -->
   <ItemGroup>
     <ProjectReference Include="../FNA/FNA.csproj" />
+	<ProjectReference Include="../Nez.FNA/Nez.FNA/Nez.FNA.csproj" />
   </ItemGroup>
 
   <!-- Include the Content directory (except for .fx files, since we use .fxb at runtime) -->
