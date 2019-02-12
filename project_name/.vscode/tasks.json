@@ -120,5 +120,13 @@
             "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline",
             "problemMatcher": "$msCompile"
         },
+		
+        {
+            "label": "Process T4 Templates",
+            "type": "shell",
+            "command": "${workspaceFolder}/.vscode/processT4Templates.sh",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+        },
     ]
 }

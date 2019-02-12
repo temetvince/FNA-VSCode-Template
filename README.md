@@ -21,7 +21,9 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 2. Run `./getFNA.sh` (macOS) to download the latest Nez, FNA and fnalibs to the directory. You can run this script again if you want to update either FNA or the fnalibs at a later point. Nez is setup as a submodule so you can update it in the normal fashion.
 3. Open the newly-created and named `PROJECT_NAME_YOU_CHOSE.code-workspace` file (or open the project folder in Visual Studio Code or the top-level sln in Visual Studio)
 
-That's it! Now you're ready to build and run the base project! When developing raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
+That's it! Now you're ready to build and run the base project. When developing raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
+
+If you want to see the output of `Debug.*` calls in the VS Code Debug Console, you have to install a listener by adding this somewhere in your code (Game1 is a good spot): `System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));`
 
 
 ## Build Tasks ##
@@ -33,6 +35,7 @@ That's it! Now you're ready to build and run the base project! When developing r
 - **Build Content:** Runs good old MGCB.exe on the Content.mgcb file
 - **Force Build Content:** Force builds the content (MGCB.exe -r)
 - **Open Pipeline Tool:** Opens the MonoGame Pipeline tool
+- **Process T4 Templates:** Processes any T4 templates found in the `T4Templates` folder. Note that the install script will attempt to install the t4 command line program which requires the `dotnet` command line program to be installed. The install command it will run is `dotnet tool install -g dotnet-t4`.
 
 
 ## License and Credits ##

@@ -94,6 +94,10 @@ if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
 fi
 
 
+# install t4 engine
+dotnet tool install -g dotnet-t4
+
+
 # Rename project
 read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
 if [[ $newProjectName = 'exit' ]]; then
