@@ -6,6 +6,9 @@
 
 printf "Starting T4 processing...\n"
 
+# create our output directory
+mkdir -p T4Templates/Output
+
 for file in `find ./T4Templates/** -name "*.tt"` ;
 do
     # Build the template
