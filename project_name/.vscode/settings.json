@@ -14,6 +14,7 @@
         "CompiledContent/obj": true,
         "CompiledContent/.mgstats": true,
         "*.csproj.user": true,
-        "*.csproj": true
+        "*.csproj": true,
+        "*.sln": true
     }
 }
