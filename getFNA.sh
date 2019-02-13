@@ -68,7 +68,9 @@ function downloadImGui()
 {
     checkGit
 	echo "Downloading ImGui..."
-	git -C $MY_DIR clone https://github.com/mellinoe/ImGui.NET.git --recursive
+	echo "Temporarily using ImGui.NET branch until ImGui.NET master is updated"
+	#git -C $MY_DIR clone https://github.com/mellinoe/ImGui.NET.git --recursive
+	git -C $MY_DIR clone -b fix-MonoGame-FNA https://github.com/prime31/ImGui.NET.git --recursive
 	if [ $? -eq 0 ]; then
 		echo "Finished downloading!\n"
 	else
@@ -168,12 +170,7 @@ if [ ! -d "$MY_DIR/project_name" ]; then
 	exit 1
 fi
 
-# copy over ImGui files before renaming the project
-echo "Copying ImGui renderer to project..."
-cp "$MY_DIR/ImGui.NET/src/ImGui.NET.SampleProgram.XNA/DrawVertDeclaration.cs" "$MY_DIR/project_name/ImGui"
-cp "$MY_DIR/ImGui.NET/src/ImGui.NET.SampleProgram.XNA/ImGuiRenderer.cs" "$MY_DIR/project_name/ImGui"
-sed -i '' "s/cimgui/cimgui.dylib/g" ImGui.NET/src/ImGui.NET/Generated/ImGuiNative.gen.cs
-	
+
 read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
 if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
     exit 1
@@ -202,4 +199,10 @@ cd Nez.FNA
 git submodule init
 git submodule update
 
-printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+command -v pbcopy > /dev/null 2>&1
+if [ ! $? -eq 0 ]; then
+	printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+else
+	echo "nuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
+	echo "command copied to your clipboard\n"
+fi
