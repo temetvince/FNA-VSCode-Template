@@ -42,7 +42,7 @@ function downloadFNA()
 	echo "Downloading FNA..."
 	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --recursive
 	if [ $? -eq 0 ]; then
-		echo "Finished downloading!\n"
+		echo "Finished downloading!"
 	else
 		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
 	fi
@@ -55,7 +55,7 @@ function updateFNA()
     echo "Updating to the latest git version of FNA..."
 	git -C "$MY_DIR/FNA" pull --recurse-submodules
 	if [ $? -eq 0 ]; then
-		echo "Finished updating!\n"
+		echo "Finished updating!"
 	else
 		echo >&2 "ERROR: Unable to update."
 		exit 1
@@ -214,5 +214,5 @@ if [ ! $? -eq 0 ]; then
 	printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
 else
 	echo "nuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
-	echo "command copied to your clipboard\n"
+	echo "command copied to your clipboard"
 fi
