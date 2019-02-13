@@ -106,6 +106,7 @@ fi
 
 sed -i '' "s/project_name/$newProjectName/g" project_name.code-workspace
 sed -i '' "s/project_name/$newProjectName/g" project_name.sln
+sed -i '' "s/project_name/$newProjectName/g" .gitignore
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.sln
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
 sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs

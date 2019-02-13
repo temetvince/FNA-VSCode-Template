@@ -11,6 +11,10 @@ namespace project_name
         {
             base.Initialize();
 			
+#if DEBUG
+            System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));
+#endif
+			
 			var newScene = new Scene();
             newScene.addRenderer(new DefaultRenderer());
 

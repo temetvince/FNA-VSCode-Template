@@ -1,9 +1,9 @@
 .DS_Store
 FNA/
 fnalibs/
-Shitty/bin
-Shitty/CompiledContent/bin
-Shitty/CompiledContent/obj
+project_name/bin
+project_name/obj
+project_name/CompiledContent/bin
+project_name/CompiledContent/obj
 .mgstats
-Shitty/obj
 

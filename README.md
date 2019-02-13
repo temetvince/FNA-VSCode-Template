@@ -23,7 +23,7 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 
 That's it! Now you're ready to build and run the base project. When developing raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
 
-If you want to see the output of `Debug.*` calls in the VS Code Debug Console, you have to install a listener by adding this somewhere in your code (Game1 is a good spot): `System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));`
+If you want to see the output of `Debug.*` calls in the VS Code Debug Console, you have to install a listener by adding this somewhere in your code (Game1 by default has one for you): `System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));`
 
 
 ## Build Tasks ##
