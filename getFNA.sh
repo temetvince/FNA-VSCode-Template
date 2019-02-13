@@ -4,6 +4,27 @@
 # Usage: ./getFNA.sh
 # Description: Quick and easy way to install a local copy of FNA and its native libraries.
 
+# Checks if dotnet is installed
+function checkDotnet()
+{
+	# || { echo >&2 "ERROR: dotnet is not installed. Please install dotnet to download the t4 tool."; exit 1; }
+	command -v dotnet > /dev/null 2>&1
+    if [ ! $? -eq 0 ]; then
+        echo >&2 "ERROR: dotnet is not installed. Please install dotnet to download the t4 tool."
+        exit 1
+    fi
+}
+
+# Checks if t4 is installed and installs it if it isnt
+function installT4()
+{
+	checkDotnet
+	command -v t4 > /dev/null 2>&1
+    if [ ! $? -eq 0 ]; then
+		dotnet tool install -g dotnet-t4
+    fi
+}
+
 # Checks if git is installed
 function checkGit()
 {
@@ -95,12 +116,18 @@ fi
 
 
 # install t4 engine
-dotnet tool install -g dotnet-t4
+installT4
 
 
 # Rename project
+if [ ! -d "$MY_DIR/project_name" ]; then
+	# old project_name folder already renamed so we are all done here
+	exit 1
+fi
+
+	
 read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
-if [[ $newProjectName = 'exit' ]]; then
+if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
     exit 1
 fi
 
