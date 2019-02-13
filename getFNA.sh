@@ -122,40 +122,50 @@ function getLibs()
 # Get the directory of this script
 MY_DIR=$(dirname "$BASH_SOURCE")
 
+
+# gather input
+
 # FNA
 if [ ! -d "$MY_DIR/FNA" ]; then
     read -p "Download FNA (y/n)? " shouldDownload
-    if [[ $shouldDownload =~ ^[Yy]$ ]]; then
-        downloadFNA
-    fi
 else
     read -p "Update FNA (y/n)? " shouldUpdate
-    if [[ $shouldUpdate =~ ^[Yy]$ ]]; then
-        updateFNA
-    fi
 fi
 
-# FNALIBS
 if [ ! -d "$MY_DIR/fnalibs" ]; then
     read -p "Download fnalibs (y/n)? " shouldDownloadLibs
 else 
     read -p "Redownload fnalibs (y/n)? " shouldDownloadLibs
 fi
+
+
+# Dear ImGui
+if [ ! -d "$MY_DIR/ImGui.NET" ]; then
+    read -p "Download ImGui.NET (y/n)? " shouldDownload
+else
+    read -p "Update ImGui.NET (y/n)? " shouldUpdate
+fi
+
+
+# act on the input
+
+# FNA
+if [[ $shouldDownload =~ ^[Yy]$ ]]; then
+    downloadFNA
+elif [[ $shouldUpdate =~ ^[Yy]$ ]]; then
+    updateFNA
+fi
+
+# FNALIBS
 if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
     getLibs
 fi
 
 # Dear ImGui
-if [ ! -d "$MY_DIR/ImGui.NET" ]; then
-    read -p "Download ImGui.NET (y/n)? " shouldDownload
-    if [[ $shouldDownload =~ ^[Yy]$ ]]; then
-        downloadImGui
-    fi
-else
-    read -p "Update ImGui.NET (y/n)? " shouldUpdate
-    if [[ $shouldUpdate =~ ^[Yy]$ ]]; then
-        updateImGui
-    fi
+if [[ $shouldDownload =~ ^[Yy]$ ]]; then
+    downloadImGui
+elif [[ $shouldUpdate =~ ^[Yy]$ ]]; then
+    updateImGui
 fi
 
 

@@ -39,7 +39,7 @@ namespace Nez
             Core.graphicsDevice.Clear( letterboxColor );
 
 
-            _imGuiRenderer.BeforeLayout(new GameTime(TimeSpan.FromDays(0), TimeSpan.FromMilliseconds(Time.deltaTime * 1000)));
+            _imGuiRenderer.BeforeLayout(Time.time);
             layoutGui();
             _imGuiRenderer.AfterLayout();
 		}
