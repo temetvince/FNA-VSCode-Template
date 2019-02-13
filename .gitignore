@@ -1,5 +1,6 @@
 .DS_Store
 FNA/
+ImGui.NET/
 fnalibs/
 project_name/bin
 project_name/obj

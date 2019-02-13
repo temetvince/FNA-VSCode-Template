@@ -62,6 +62,35 @@ function updateFNA()
 	fi
 }
 
+
+# Clones FNA from the git master branch
+function downloadImGui()
+{
+    checkGit
+	echo "Downloading ImGui..."
+	git -C $MY_DIR clone https://github.com/mellinoe/ImGui.NET.git --recursive
+	if [ $? -eq 0 ]; then
+		echo "Finished downloading!\n"
+	else
+		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
+	fi
+}
+
+# Pulls FNA from the git master branch
+function updateImGui()
+{
+    checkGit
+    echo "Updating to the latest git version of ImGui.NET..."
+	git -C "$MY_DIR/ImGui.NET" pull --recurse-submodules
+	if [ $? -eq 0 ]; then
+		echo "Finished updating!\n"
+	else
+		echo >&2 "ERROR: Unable to update."
+		exit 1
+	fi
+}
+
+
 # Downloads and extracts prepackaged archive of native libraries ("fnalibs")
 function getLibs()
 {
@@ -114,17 +143,36 @@ if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
     getLibs
 fi
 
+# Dear ImGui
+if [ ! -d "$MY_DIR/ImGui.NET" ]; then
+    read -p "Download ImGui.NET (y/n)? " shouldDownload
+    if [[ $shouldDownload =~ ^[Yy]$ ]]; then
+        downloadImGui
+    fi
+else
+    read -p "Update ImGui.NET (y/n)? " shouldUpdate
+    if [[ $shouldUpdate =~ ^[Yy]$ ]]; then
+        updateImGui
+    fi
+fi
+
 
 # install t4 engine
 installT4
 
 
-# Rename project
+
+# Only proceed from here if we have not yet renamed the project
 if [ ! -d "$MY_DIR/project_name" ]; then
 	# old project_name folder already renamed so we are all done here
 	exit 1
 fi
 
+# copy over ImGui files before renaming the project
+echo "Copying ImGui renderer to project..."
+cp "$MY_DIR/ImGui.NET/src/ImGui.NET.SampleProgram.XNA/DrawVertDeclaration.cs" "$MY_DIR/project_name/ImGui"
+cp "$MY_DIR/ImGui.NET/src/ImGui.NET.SampleProgram.XNA/ImGuiRenderer.cs" "$MY_DIR/project_name/ImGui"
+sed -i '' "s/cimgui/cimgui.dylib/g" ImGui.NET/src/ImGui.NET/Generated/ImGuiNative.gen.cs
 	
 read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
 if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
