@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNA", "FNA\FNA.csproj", "{3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez.FNA", "Nez.FNA\Nez.FNA\Nez.FNA.csproj", "{11A5855C-B12C-4F8D-B935-56F3D0B671C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.NET", "ImGui.NET\src\ImGui.NET\ImGui.NET.csproj", "{AD548A1D-01B2-410E-B3ED-ADAC05C3C4A3}"
-EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8C576ECC-147D-4B4A-8EC1-56533D26A178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

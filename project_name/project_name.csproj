@@ -14,7 +14,6 @@
     <ItemGroup>
         <ProjectReference Include="../FNA/FNA.csproj"/>
         <ProjectReference Include="../Nez.FNA/Nez.FNA/Nez.FNA.csproj"/>
-        <ProjectReference Include="../ImGui.NET/src/ImGui.NET/ImGui.NET.csproj"/>
     </ItemGroup>
     
     <!-- Include the Content directory (except for .fx files, since we use .fxb at runtime) -->
@@ -74,22 +73,30 @@
     </ItemGroup>
     
     <!-- Copy ImGui native code to output -->
+    <PropertyGroup>
+        <ImGuiRuntimes>$(NuGetPackageRoot)\imgui.net\**\runtimes\</ImGuiRuntimes>
+    </PropertyGroup>
+
     <ItemGroup>
-        <Content Include="..\ImGui.NET\deps\cimgui\win-x86\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
-            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <Content Include="$(ImGuiRuntimes)win-x86\native\cimgui.dll" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
+            <Link>%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\ImGui.NET\deps\cimgui\win-x64\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
-            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <Content Include="$(ImGuiRuntimes)win-x64\native\cimgui.dll" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
+            <Link>%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\ImGui.NET\deps\cimgui\osx-x64\*.*" Condition="'$(OS)' != 'Windows_NT' AND $(IsOSX) == 'true'">
-            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <Content Include="$(ImGuiRuntimes)osx-x64\native\cimgui.dylib" Condition="'$(OS)' != 'Windows_NT' AND $(IsOSX) == 'true'">
+            <Link>libcimgui.dylib</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\ImGui.NET\deps\cimgui\linux-x64\*.*" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
-            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <Content Include=".$(ImGuiRuntimes)linux-x64\native\cimgui.so" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
+            <Link>%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="ImGui.NET" Version="1.67.0" />
     </ItemGroup>
 </Project>

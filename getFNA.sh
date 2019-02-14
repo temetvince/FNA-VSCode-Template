@@ -63,36 +63,6 @@ function updateFNA()
 }
 
 
-# Clones FNA from the git master branch
-function downloadImGui()
-{
-    checkGit
-	echo "Downloading ImGui..."
-	echo "Temporarily using ImGui.NET branch until ImGui.NET master is updated"
-	#git -C $MY_DIR clone https://github.com/mellinoe/ImGui.NET.git --recursive
-	git -C $MY_DIR clone -b fix-MonoGame-FNA https://github.com/prime31/ImGui.NET.git --recursive
-	if [ $? -eq 0 ]; then
-		echo "Finished downloading!"
-	else
-		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
-	fi
-}
-
-# Pulls FNA from the git master branch
-function updateImGui()
-{
-    checkGit
-    echo "Updating to the latest git version of ImGui.NET..."
-	git -C "$MY_DIR/ImGui.NET" pull --recurse-submodules
-	if [ $? -eq 0 ]; then
-		echo "Finished updating!\n"
-	else
-		echo >&2 "ERROR: Unable to update."
-		exit 1
-	fi
-}
-
-
 # Downloads and extracts prepackaged archive of native libraries ("fnalibs")
 function getLibs()
 {
@@ -139,14 +109,6 @@ else
 fi
 
 
-# Dear ImGui
-if [ ! -d "$MY_DIR/ImGui.NET" ]; then
-    read -p "Download ImGui.NET (y/n)? " shouldDownload
-else
-    read -p "Update ImGui.NET (y/n)? " shouldUpdate
-fi
-
-
 # act on the input
 
 # FNA
@@ -159,13 +121,6 @@ fi
 # FNALIBS
 if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
     getLibs
-fi
-
-# Dear ImGui
-if [[ $shouldDownload =~ ^[Yy]$ ]]; then
-    downloadImGui
-elif [[ $shouldUpdate =~ ^[Yy]$ ]]; then
-    updateImGui
 fi
 
 

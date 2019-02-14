@@ -17,9 +17,9 @@ namespace Nez
 
         public ImGuiFinalRenderDelegate()
         {
-            var core = typeof(Core).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) as Core;
-            _imGuiRenderer = new ImGuiRenderer(core);
+            _imGuiRenderer = new ImGuiRenderer(Core.instance);
             _imGuiRenderer.RebuildFontAtlas();
+            ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
         }
 
 		public void handleFinalRender( Color letterboxColor, RenderTarget2D source, Rectangle finalRenderDestinationRect, SamplerState samplerState )
