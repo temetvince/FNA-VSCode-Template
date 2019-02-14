@@ -72,7 +72,7 @@ function downloadImGui()
 	#git -C $MY_DIR clone https://github.com/mellinoe/ImGui.NET.git --recursive
 	git -C $MY_DIR clone -b fix-MonoGame-FNA https://github.com/prime31/ImGui.NET.git --recursive
 	if [ $? -eq 0 ]; then
-		echo "Finished downloading!\n"
+		echo "Finished downloading!"
 	else
 		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
 	fi
@@ -214,5 +214,7 @@ if [ ! $? -eq 0 ]; then
 	printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
 else
 	echo "nuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
-	echo "command copied to your clipboard"
+	echo ""
+	echo "A build command was copied to your clipboard. Paste and run it now."
+	echo ""
 fi
