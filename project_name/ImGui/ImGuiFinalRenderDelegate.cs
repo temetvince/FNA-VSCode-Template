@@ -18,6 +18,7 @@ namespace Nez
 		{
 			_imGuiRenderer = new ImGuiRenderer( Core.instance );
 			_imGuiRenderer.rebuildFontAtlas();
+            ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
 		}
 
 		[Console.Command( "toggle-imgui", "Toggles the Dear ImGui renderer" )]
