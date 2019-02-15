@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using ImGuiNET;
-using ImGuiNET.SampleProgram.XNA;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,68 +10,99 @@ namespace Nez
 	{
 		public Scene scene { get; set; }
 
-        ImGuiRenderer _imGuiRenderer;
-        RenderTarget2D _lastRenderTarget;
-        IntPtr _renderTargetId;
+		ImGuiRenderer _imGuiRenderer;
+		RenderTarget2D _lastRenderTarget;
+		IntPtr _renderTargetId;
 
-        public ImGuiFinalRenderDelegate()
-        {
-            _imGuiRenderer = new ImGuiRenderer(Core.instance);
-            _imGuiRenderer.RebuildFontAtlas();
-            ImGui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
-        }
-
-		public void handleFinalRender( Color letterboxColor, RenderTarget2D source, Rectangle finalRenderDestinationRect, SamplerState samplerState )
+		public ImGuiFinalRenderDelegate()
 		{
-            if(_lastRenderTarget != source)
-            {
-                // unbind the old texture if we had one
-                if(_lastRenderTarget != null)
-                    _imGuiRenderer.UnbindTexture(_renderTargetId);
-
-                // bind the new texture
-                _lastRenderTarget = source;
-                _renderTargetId = _imGuiRenderer.BindTexture(source);
-            }
-
-            Core.graphicsDevice.setRenderTarget( null );
-            Core.graphicsDevice.Clear( letterboxColor );
-
-
-            _imGuiRenderer.BeforeLayout(Time.time);
-            layoutGui();
-            _imGuiRenderer.AfterLayout();
+			_imGuiRenderer = new ImGuiRenderer( Core.instance );
+			_imGuiRenderer.rebuildFontAtlas();
 		}
 
-        void layoutGui()
-        {
-            ImGui.ShowDemoWindow();
+		[Console.Command( "toggle-imgui", "Toggles the Dear ImGui renderer" )]
+		static void toggleImGui()
+		{
+			if( Core.scene.finalRenderDelegate == null )
+				Core.scene.finalRenderDelegate = new ImGuiFinalRenderDelegate();
+			else
+				Core.scene.finalRenderDelegate = null;
+		}
 
-            var maxSize = new System.Numerics.Vector2(_lastRenderTarget.Width, _lastRenderTarget.Height);
-            var minSize = maxSize / 4;
-            unsafe
-            {
-                ImGui.SetNextWindowSizeConstraints(minSize, maxSize, data =>
-                {
-                    var size = (*data).CurrentSize;
-                    var ratio = size.X / _lastRenderTarget.Width;
-                    (*data).DesiredSize.Y = ratio * _lastRenderTarget.Height;
-                });
-            }
+		void layoutGui()
+		{
+			ImGui.ShowDemoWindow();
 
-            ImGui.SetNextWindowPos(new System.Numerics.Vector2(0, 0), ImGuiCond.FirstUseEver);
-            ImGui.Begin("Game Window");
-            ImGui.Image(_renderTargetId, ImGui.GetContentRegionAvail());
-            ImGui.End();
-        }
+			var maxSize = new System.Numerics.Vector2( _lastRenderTarget.Width, _lastRenderTarget.Height );
+			var minSize = maxSize / 4;
+			maxSize *= 4;
+			unsafe
+			{
+				ImGui.SetNextWindowSizeConstraints( minSize, maxSize, data =>
+				 {
+					 var size = ( *data ).CurrentSize;
+					 var ratio = size.X / _lastRenderTarget.Width;
+					 ( *data ).DesiredSize.Y = ratio * _lastRenderTarget.Height;
+				 } );
+			}
+
+			ImGui.SetNextWindowPos( new System.Numerics.Vector2( 0, 0 ), ImGuiCond.FirstUseEver );
+			ImGui.PushStyleVar( ImGuiStyleVar.WindowPadding, new System.Numerics.Vector2( 0, 0 ) );
+			ImGui.Begin( "Game Window" );
+
+			Nugget.InputDisplay.cursorScreenPos = new Vector2( ImGui.GetCursorScreenPos().X, ImGui.GetCursorScreenPos().Y );
+			Nugget.InputDisplay.scaleX = ImGui.GetContentRegionAvail().X / _lastRenderTarget.Width;
+			Nugget.InputDisplay.scaleY = ImGui.GetContentRegionAvail().Y / _lastRenderTarget.Height;
+
+			//Debug.log( $"window pos: {ImGui.GetWindowPos()}" );
+			//Debug.log( $"avail size: {ImGui.GetContentRegionAvail()}" );
+			//Debug.log( $"rt {_lastRenderTarget.Width} x {_lastRenderTarget.Height}" );
+			//Debug.log( $"scaleX: {ImGui.GetContentRegionAvail().X / _lastRenderTarget.Width}" );
+			//Debug.log( $"scaleY: {ImGui.GetContentRegionAvail().Y / _lastRenderTarget.Height}" );
+			//Debug.log( ImGui.GetWindowSize() - ImGui.GetContentRegionAvail() );
+			//Debug.log( $"titleHeight: {titleHeight}" );
+			//Debug.log( $"screenPos: {ImGui.GetCursorScreenPos()}" );
+
+
+			ImGui.Image( _renderTargetId, ImGui.GetContentRegionAvail() );
+			ImGui.End();
+
+			ImGui.PopStyleVar();
+		}
+
+        #region IFinalRenderDelegate
+
+		public void handleFinalRender( RenderTarget2D finalRenderTarget, Color letterboxColor, RenderTarget2D source, Rectangle finalRenderDestinationRect, SamplerState samplerState )
+		{
+			if( _lastRenderTarget != source )
+			{
+				// unbind the old texture if we had one
+				if( _lastRenderTarget != null )
+					_imGuiRenderer.unbindTexture( _renderTargetId );
+
+				// bind the new texture
+				_lastRenderTarget = source;
+				_renderTargetId = _imGuiRenderer.bindTexture( source );
+			}
+
+			Core.graphicsDevice.setRenderTarget( finalRenderTarget );
+			Core.graphicsDevice.Clear( letterboxColor );
+
+
+			_imGuiRenderer.beforeLayout( Time.deltaTime );
+			layoutGui();
+			_imGuiRenderer.afterLayout();
+		}
 
 		public void onAddedToScene()
-		{}
+		{ }
 
 		public void onSceneBackBufferSizeChanged( int newWidth, int newHeight )
-		{}
+		{ }
 
 		public void unload()
-		{}
+		{ }
+
+        #endregion
 	}
 }
