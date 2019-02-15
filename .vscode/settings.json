@@ -8,21 +8,20 @@
     "csharp.referencesCodeLens.enabled": false,
 	
     "files.exclude": {
-        "**/.[^v]*": true, // hide any file that start with a '.' but keep the .vscode folder
+        "**/.[^v]*": true, // hide any files that start with a '.' but keep the .vscode folder
+        ".vs": true, // Visual Studio settings
         "getFNA.sh": true,
         "MonoGameContent.targets": true,
-        ".vs": true,
-        "**/obj": true,
-        "**/bin": true,
+        "project_name/obj": true,
+        "project_name/bin": true,
         ".gitignore": true,
         ".gitmodules": true,
         "README.md": true,
         "fnalibs": true,
-        "**/CompiledContent/bin": true,
-        "**/CompiledContent/obj": true,
-        "**/CompiledContent/.mgstats": true,
-        "**/*.csproj.user": true,
-        "**/*.csproj": true,
+        "project_name/CompiledContent/bin": true,
+        "project_name/CompiledContent/obj": true,
+        "project_name/CompiledContent/.mgstats": true,
+        "project_name/*.csproj*": true,
         "*.sln": true,
         "FNA/[^src]*": true, // hide everything but the src folder
         "Nez.FNA/[^Nez]*": true, // hide everything bug the Nez folder
