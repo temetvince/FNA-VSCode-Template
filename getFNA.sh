@@ -148,6 +148,7 @@ sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
 sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs	
 sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
 sed -i '' "s/project_name/$newProjectName/g" .vscode/tasks.json
+sed -i '' "s/project_name/$newProjectName/g" .vscode/settings.json
 sed -i '' "s/project_name/$newProjectName/g" .vscode/launch.json
 sed -i '' "s/project_name/$newProjectName/g" .vscode/buildEffects.sh
 sed -i '' "s/project_name/$newProjectName/g" .vscode/processT4Templates.sh
