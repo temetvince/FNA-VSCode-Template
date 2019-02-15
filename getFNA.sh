@@ -141,17 +141,17 @@ if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
     exit 1
 fi
 
-sed -i '' "s/project_name/$newProjectName/g" project_name.code-workspace
 sed -i '' "s/project_name/$newProjectName/g" project_name.sln
 sed -i '' "s/project_name/$newProjectName/g" .gitignore
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.sln
 sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
-sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs
+sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs	
 sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
-sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/tasks.json
-sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/launch.json
+sed -i '' "s/project_name/$newProjectName/g" .vscode/tasks.json
+sed -i '' "s/project_name/$newProjectName/g" .vscode/launch.json
+sed -i '' "s/project_name/$newProjectName/g" .vscode/buildEffects.sh
+sed -i '' "s/project_name/$newProjectName/g" .vscode/processT4Templates.sh
 
-mv project_name.code-workspace "$newProjectName.code-workspace"
 mv project_name.sln "$newProjectName.sln"
 mv project_name/project_name.sln "project_name/$newProjectName.sln"
 mv project_name/project_name.csproj "project_name/$newProjectName.csproj"
@@ -159,7 +159,7 @@ mv project_name/project_name.csproj.user "project_name/$newProjectName.csproj.us
 mv project_name "$newProjectName"
 
 git init
-git submodule add git@github.com:prime31/Nez.FNA.git
+git submodule add https://github.com/prime31/Nez.FNA.git
 cd Nez.FNA
 git submodule init
 git submodule update

@@ -6,6 +6,7 @@
 
 printf "Starting T4 processing...\n"
 
+cd project_name
 for file in `find ./T4Templates/** -name "*.tt"` ;
 do
     # Build the template

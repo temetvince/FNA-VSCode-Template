@@ -19,9 +19,9 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 ## Setup Instructions ##
 1. Download and unzip the ZIP archive (don't clone the repo!)
 2. Run `./getFNA.sh` (macOS) to download the latest Nez, FNA and fnalibs to the directory. You can run this script again if you want to update either FNA or the fnalibs at a later point. Nez is setup as a submodule so you can update it in the normal fashion.
-3. Open the newly-created and named `PROJECT_NAME_YOU_CHOSE.code-workspace` file (or open the project folder in Visual Studio Code or the top-level sln in Visual Studio)
+3. Open the root folder that contains the .sln file in Visual Studio Code or the .sln file directly in Visual Studio
 
-That's it! Now you're ready to build and run the base project. When developing raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
+That's it! Now you're ready to build and run the base project. When developing, raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
 
 The setup process will also init a git repo for you with Nez added as a submodule.
 
