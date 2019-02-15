@@ -50,20 +50,6 @@ namespace Nez
 			ImGui.PushStyleVar( ImGuiStyleVar.WindowPadding, new System.Numerics.Vector2( 0, 0 ) );
 			ImGui.Begin( "Game Window" );
 
-			Nugget.InputDisplay.cursorScreenPos = new Vector2( ImGui.GetCursorScreenPos().X, ImGui.GetCursorScreenPos().Y );
-			Nugget.InputDisplay.scaleX = ImGui.GetContentRegionAvail().X / _lastRenderTarget.Width;
-			Nugget.InputDisplay.scaleY = ImGui.GetContentRegionAvail().Y / _lastRenderTarget.Height;
-
-			//Debug.log( $"window pos: {ImGui.GetWindowPos()}" );
-			//Debug.log( $"avail size: {ImGui.GetContentRegionAvail()}" );
-			//Debug.log( $"rt {_lastRenderTarget.Width} x {_lastRenderTarget.Height}" );
-			//Debug.log( $"scaleX: {ImGui.GetContentRegionAvail().X / _lastRenderTarget.Width}" );
-			//Debug.log( $"scaleY: {ImGui.GetContentRegionAvail().Y / _lastRenderTarget.Height}" );
-			//Debug.log( ImGui.GetWindowSize() - ImGui.GetContentRegionAvail() );
-			//Debug.log( $"titleHeight: {titleHeight}" );
-			//Debug.log( $"screenPos: {ImGui.GetCursorScreenPos()}" );
-
-
 			ImGui.Image( _renderTargetId, ImGui.GetContentRegionAvail() );
 			ImGui.End();
 
