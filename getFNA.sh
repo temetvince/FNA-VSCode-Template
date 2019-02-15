@@ -141,17 +141,11 @@ if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
     exit 1
 fi
 
-sed -i '' "s/project_name/$newProjectName/g" project_name.sln
-sed -i '' "s/project_name/$newProjectName/g" .gitignore
-sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.sln
-sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
-sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs	
-sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
-sed -i '' "s/project_name/$newProjectName/g" .vscode/tasks.json
-sed -i '' "s/project_name/$newProjectName/g" .vscode/settings.json
-sed -i '' "s/project_name/$newProjectName/g" .vscode/launch.json
-sed -i '' "s/project_name/$newProjectName/g" .vscode/buildEffects.sh
-sed -i '' "s/project_name/$newProjectName/g" .vscode/processT4Templates.sh
+# any files that need to have project_name replaced with the new project name should be here
+files=(project_name.sln .gitignore project_name/project_name.sln project_name/project_name.csproj project_name/Game1.cs project_name/Program.cs .vscode/tasks.json .vscode/settings.json .vscode/launch.json .vscode/buildEffects.sh .vscode/processT4Templates.sh)
+for file in "${files[@]}"; do
+    sed -i '' "s/project_name/$newProjectName/g" $file
+done
 
 mv project_name.sln "$newProjectName.sln"
 mv project_name/project_name.sln "project_name/$newProjectName.sln"
