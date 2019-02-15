@@ -8,13 +8,28 @@
     "csharp.referencesCodeLens.enabled": false,
 	
     "files.exclude": {
-        "obj": true,
-        "bin": true,
-        "CompiledContent/bin": true,
-        "CompiledContent/obj": true,
-        "CompiledContent/.mgstats": true,
-        "*.csproj.user": true,
-        "*.csproj": true,
-        "*.sln": true
+        "**/.[^v]*": true, // hide any file that start with a '.' but keep the .vscode folder
+        "getFNA.sh": true,
+        "MonoGameContent.targets": true,
+        ".vs": true,
+        "**/obj": true,
+        "**/bin": true,
+        ".gitignore": true,
+        ".gitmodules": true,
+        "README.md": true,
+        "fnalibs": true,
+        "**/CompiledContent/bin": true,
+        "**/CompiledContent/obj": true,
+        "**/CompiledContent/.mgstats": true,
+        "**/*.csproj.user": true,
+        "**/*.csproj": true,
+        "*.sln": true,
+        "FNA/[^src]*": true, // hide everything but the src folder
+        "Nez.FNA/[^Nez]*": true, // hide everything bug the Nez folder
+        "Nez.FNA/Nez.FNA*": true, // we miss the Nez.FNA* stuff with the above line so hide that too
+        "Nez.FNA/Nez/{[^DN]*}": true, // hide everything except what begins with D or N
+        "Nez.FNA/Nez/Nez.VisualStudio*": true,
+        "Nez.FNA/Nez/Nez.Xamarin*": true,
+        "Nez.FNA/Nez/Nez.Naming*": true,
     }
 }
