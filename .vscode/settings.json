@@ -27,8 +27,6 @@
         "Nez.FNA/[^Nez]*": true, // hide everything but the Nez folder
         "Nez.FNA/Nez.FNA*": true, // we miss the Nez.FNA* stuff with the above line so hide that too
         "Nez.FNA/Nez/{[^DN]*}": true, // hide everything except what begins with D or N
-        "Nez.FNA/Nez/Nez.VisualStudio*": true,
-        "Nez.FNA/Nez/Nez.Xamarin*": true,
-        "Nez.FNA/Nez/Nez.Naming*": true,
+        "Nez.FNA/Nez/Nez.*.*": true,
     }
 }
