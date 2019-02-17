@@ -98,6 +98,9 @@
             "type": "shell",
             "group": "build",
             "command": "msbuild /t:BuildContent",
+            "options": {
+                "cwd": "${workspaceFolder}/project_name"
+            },
             "problemMatcher": "$msCompile"
         },
 

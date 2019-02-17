@@ -82,6 +82,7 @@ function getLibs()
     tar xjC $MY_DIR/fnalibs -f $MY_DIR/fnalibs.tar.bz2
     if [ $? -eq 0 ]; then
         echo "Finished decompressing!"
+        echo ""
         rm $MY_DIR/fnalibs.tar.bz2
     else
         >&2 echo "ERROR: Unable to decompress successfully."
@@ -142,7 +143,7 @@ if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
 fi
 
 # any files that need to have project_name replaced with the new project name should be here
-files=(project_name.sln .gitignore project_name/project_name.sln project_name/project_name.csproj project_name/Game1.cs project_name/Program.cs .vscode/tasks.json .vscode/settings.json .vscode/launch.json .vscode/buildEffects.sh .vscode/processT4Templates.sh)
+files=(project_name.sln .gitignore project_name/project_name.csproj project_name/Game1.cs project_name/Program.cs .vscode/tasks.json .vscode/settings.json .vscode/launch.json .vscode/buildEffects.sh .vscode/processT4Templates.sh)
 for file in "${files[@]}"; do
     sed -i '' "s/project_name/$newProjectName/g" $file
 done
@@ -154,16 +155,16 @@ mv project_name/project_name.csproj.user "project_name/$newProjectName.csproj.us
 mv project_name "$newProjectName"
 
 git init
-git submodule add https://github.com/prime31/Nez.FNA.git
-cd Nez.FNA
+git submodule add https://github.com/prime31/Nez.git
+cd Nez
 git submodule init
 git submodule update
 
 command -v pbcopy > /dev/null 2>&1
 if [ ! $? -eq 0 ]; then
-	printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+	printf "\n\nManually run the following command:\n\nnuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
 else
-	echo "nuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
+	echo "nuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
 	echo ""
 	echo "A build command was copied to your clipboard. Paste and run it now."
 	echo ""

@@ -11,22 +11,19 @@
         "**/.[^v]*": true, // hide any files that start with a '.' but keep the .vscode folder
         ".vs": true, // Visual Studio settings
         "getFNA.sh": true,
+        "imgui.ini": true,
         "MonoGameContent.targets": true,
-        "project_name/obj": true,
-        "project_name/bin": true,
+        "**/obj": true,
+        "**/bin": true,
         ".gitignore": true,
         ".gitmodules": true,
         "README.md": true,
         "fnalibs": true,
-        "project_name/CompiledContent/bin": true,
-        "project_name/CompiledContent/obj": true,
         "project_name/CompiledContent/.mgstats": true,
-        "project_name/*.csproj*": true,
-        "*.sln": true,
+        "**/*.csproj*": true,
+        "**/*.sln": true,
         "FNA/[^src]*": true, // hide everything but the src folder
-        "Nez.FNA/[^Nez]*": true, // hide everything but the Nez folder
-        "Nez.FNA/Nez.FNA*": true, // we miss the Nez.FNA* stuff with the above line so hide that too
-        "Nez.FNA/Nez/{[^DN]*}": true, // hide everything except what begins with D or N
-        "Nez.FNA/Nez/Nez.*.*": true,
+        "Nez/{[^DN]*}": true, // hide everything except what begins with D or N
+        "Nez/Nez.*.*": true, // hide the files in the root of the repo
     }
 }
