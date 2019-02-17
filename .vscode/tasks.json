@@ -97,10 +97,7 @@
             "label": "Build Content",
             "type": "shell",
             "group": "build",
-            "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb",
-            "options": {
-                "cwd": "${workspaceFolder}/project_name/CompiledContent"
-            },
+            "command": "msbuild /t:BuildContent",
             "problemMatcher": "$msCompile"
         },
 

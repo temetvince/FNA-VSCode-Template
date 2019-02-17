@@ -18,9 +18,6 @@ namespace project_name
 			// setup a Scene so we have something to show
 			var newScene = new Scene();
             newScene.addRenderer(new DefaultRenderer());
-            
-            // optionally render Nez in an ImGui window
-            newScene.finalRenderDelegate = new ImGuiFinalRenderDelegate();
 
             var logo = newScene.content.Load<Microsoft.Xna.Framework.Graphics.Texture2D>("nez-logo-black");
             newScene.createEntity("logo")
@@ -28,6 +25,11 @@ namespace project_name
                 .addComponent(new Nez.Sprites.Sprite(logo));
 
             scene = newScene;
+            
+            // optionally render Nez in an ImGui window
+			var imGuiManager = new ImGuiManager();
+			Core.registerGlobalManager( imGuiManager );
+			imGuiManager.setEnabled( true );
         }
     }
 }

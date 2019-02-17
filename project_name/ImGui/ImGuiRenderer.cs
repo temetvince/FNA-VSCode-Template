@@ -9,10 +9,12 @@ using System.Runtime.InteropServices;
 namespace ImGuiNET
 {
 	/// <summary>
-	/// ImGui renderer for use with XNA-likes (FNA and MonoGame)
+	/// ImGui renderer for use with XNA-likes (FNA & MonoGame)
 	/// </summary>
 	public class ImGuiRenderer
 	{
+		public ImFontPtr defaultFontPtr { get; private set; }
+
 		// Graphics
 		BasicEffect _effect;
 		RasterizerState _rasterizerState;
@@ -29,7 +31,7 @@ namespace ImGuiNET
 		int _indexBufferSize;
 
 		// Textures
-		Dictionary<IntPtr, Texture2D> _loadedTextures;
+		Dictionary<IntPtr, Texture2D> _loadedTextures = new Dictionary<IntPtr, Texture2D>();
 
 		int _textureId;
 		IntPtr? _fontTextureId;
@@ -52,10 +54,7 @@ namespace ImGuiNET
 				new VertexElement( 16, VertexElementFormat.Color, VertexElementUsage.Color, 0 )
 			);
 
-			var context = ImGui.CreateContext();
-			ImGui.SetCurrentContext( context );
-
-			_loadedTextures = new Dictionary<IntPtr, Texture2D>();
+			ImGui.SetCurrentContext( ImGui.CreateContext() );
 
 			_rasterizerState = new RasterizerState()
 			{
@@ -79,6 +78,9 @@ namespace ImGuiNET
 		{
 			// Get font texture from ImGui
 			var io = ImGui.GetIO();
+
+			defaultFontPtr = ImGui.GetIO().Fonts.AddFontDefault();
+
 			io.Fonts.GetTexDataAsRGBA32( out byte* pixelData, out int width, out int height, out int bytesPerPixel );
 
 			// Copy the data to a managed array
@@ -187,8 +189,6 @@ namespace ImGuiNET
 				ImGui.GetIO().AddInputCharacter( c );
 			};
 			///////////////////////////////////////////
-
-			ImGui.GetIO().Fonts.AddFontDefault();
 		}
 
 		/// <summary>
