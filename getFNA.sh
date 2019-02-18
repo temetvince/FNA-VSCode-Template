@@ -42,7 +42,7 @@ function downloadFNA()
 	echo "Downloading FNA..."
 	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --recursive
 	if [ $? -eq 0 ]; then
-		echo "Finished downloading!\n"
+		echo "Finished downloading!"
 	else
 		echo >&2 "ERROR: Unable to download successfully. Maybe try again later?"
 	fi
@@ -55,12 +55,13 @@ function updateFNA()
     echo "Updating to the latest git version of FNA..."
 	git -C "$MY_DIR/FNA" pull --recurse-submodules
 	if [ $? -eq 0 ]; then
-		echo "Finished updating!\n"
+		echo "Finished updating!"
 	else
 		echo >&2 "ERROR: Unable to update."
 		exit 1
 	fi
 }
+
 
 # Downloads and extracts prepackaged archive of native libraries ("fnalibs")
 function getLibs()
@@ -81,6 +82,7 @@ function getLibs()
     tar xjC $MY_DIR/fnalibs -f $MY_DIR/fnalibs.tar.bz2
     if [ $? -eq 0 ]; then
         echo "Finished decompressing!"
+        echo ""
         rm $MY_DIR/fnalibs.tar.bz2
     else
         >&2 echo "ERROR: Unable to decompress successfully."
@@ -91,25 +93,33 @@ function getLibs()
 # Get the directory of this script
 MY_DIR=$(dirname "$BASH_SOURCE")
 
+
+# gather input
+
 # FNA
 if [ ! -d "$MY_DIR/FNA" ]; then
     read -p "Download FNA (y/n)? " shouldDownload
-    if [[ $shouldDownload =~ ^[Yy]$ ]]; then
-        downloadFNA
-    fi
 else
     read -p "Update FNA (y/n)? " shouldUpdate
-    if [[ $shouldUpdate =~ ^[Yy]$ ]]; then
-        updateFNA
-    fi
 fi
 
-# FNALIBS
 if [ ! -d "$MY_DIR/fnalibs" ]; then
     read -p "Download fnalibs (y/n)? " shouldDownloadLibs
 else 
     read -p "Redownload fnalibs (y/n)? " shouldDownloadLibs
 fi
+
+
+# act on the input
+
+# FNA
+if [[ $shouldDownload =~ ^[Yy]$ ]]; then
+    downloadFNA
+elif [[ $shouldUpdate =~ ^[Yy]$ ]]; then
+    updateFNA
+fi
+
+# FNALIBS
 if [[ $shouldDownloadLibs =~ ^[Yy]$ ]]; then
     getLibs
 fi
@@ -119,29 +129,25 @@ fi
 installT4
 
 
-# Rename project
+
+# Only proceed from here if we have not yet renamed the project
 if [ ! -d "$MY_DIR/project_name" ]; then
 	# old project_name folder already renamed so we are all done here
 	exit 1
 fi
 
-	
+
 read -p "Enter the project name to use for your folder and csproj file or 'exit' to quit: " newProjectName
 if [[ $newProjectName = 'exit' || -z "$newProjectName" ]]; then
     exit 1
 fi
 
-sed -i '' "s/project_name/$newProjectName/g" project_name.code-workspace
-sed -i '' "s/project_name/$newProjectName/g" project_name.sln
-sed -i '' "s/project_name/$newProjectName/g" .gitignore
-sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.sln
-sed -i '' "s/project_name/$newProjectName/g" project_name/project_name.csproj
-sed -i '' "s/project_name/$newProjectName/g" project_name/Game1.cs
-sed -i '' "s/project_name/$newProjectName/g" project_name/Program.cs
-sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/tasks.json
-sed -i '' "s/project_name/$newProjectName/g" project_name/.vscode/launch.json
+# any files that need to have project_name replaced with the new project name should be here
+files=(project_name.sln .gitignore project_name/project_name.csproj project_name/Game1.cs project_name/Program.cs .vscode/tasks.json .vscode/settings.json .vscode/launch.json .vscode/buildEffects.sh .vscode/processT4Templates.sh)
+for file in "${files[@]}"; do
+    sed -i '' "s/project_name/$newProjectName/g" $file
+done
 
-mv project_name.code-workspace "$newProjectName.code-workspace"
 mv project_name.sln "$newProjectName.sln"
 mv project_name/project_name.sln "project_name/$newProjectName.sln"
 mv project_name/project_name.csproj "project_name/$newProjectName.csproj"
@@ -149,9 +155,17 @@ mv project_name/project_name.csproj.user "project_name/$newProjectName.csproj.us
 mv project_name "$newProjectName"
 
 git init
-git submodule add git@github.com:prime31/Nez.FNA.git
-cd Nez.FNA
+git submodule add https://github.com/prime31/Nez.git
+cd Nez
 git submodule init
 git submodule update
 
-printf "\n\nManually run the following command:\n\nnuget restore Nez.FNA/Nez/Nez.sln && msbuild Nez.FNA/Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+command -v pbcopy > /dev/null 2>&1
+if [ ! $? -eq 0 ]; then
+	printf "\n\nManually run the following command:\n\nnuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+else
+	echo "nuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
+	echo ""
+	echo "A build command was copied to your clipboard. Paste and run it now."
+	echo ""
+fi

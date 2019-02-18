@@ -49,6 +49,9 @@ namespace Nez
 
 
 <#+
+	// all the valid file extensions we should add to the output file
+	private string[] fileExtensionsToCopy = new string[] { ".xnb", ".png", ".ogg", ".wav", ".fxb" };
+
 	// C# reserved keywords
 	private System.Collections.Generic.List<string> keywords = new System.Collections.Generic.List<string>
 	{
@@ -63,7 +66,7 @@ namespace Nez
 	void printDirectoryClass( string dir, int depth, string sourceFolder )
 	{
 		var dirInfo = new DirectoryInfo( dir );
-		var firstIndent = new string( ' ', depth * 5 );
+		var firstIndent = new string( ' ', depth * 4 );
 		var className = generateClassName( dirInfo.Name, true );
 		WriteLine( "{0}public static class {1}\n{2}{{", firstIndent, className, firstIndent );
 
@@ -81,10 +84,10 @@ namespace Nez
 	// prints a const string for each file in the directory
 	void printContentFiles( string dir, int depth, string sourceFolder )
 	{
-		var firstIndent = new string( '\t', depth );
+		var firstIndent = new string( ' ', depth * 4 );
 
 		var files = Directory.EnumerateFiles( dir )
-            	.Where( s => s.EndsWith( ".xnb" ) || s.EndsWith( ".png" ) || s.EndsWith( ".ogg" ) || s.EndsWith( ".wav" ) || s.EndsWith( ".fxb" ) );
+            	.Where( s => Array.IndexOf( fileExtensionsToCopy, Path.GetExtension( s ) ) >= 0 );
 		foreach( var file in files )
 		{
 			// clear out all of the path up to the sourceFolder so we get just the relative path to the Content folder

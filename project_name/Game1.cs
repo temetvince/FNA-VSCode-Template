@@ -1,4 +1,5 @@
 using Nez;
+using Nez.ImGuiTools;
 
 namespace project_name
 {
@@ -14,7 +15,8 @@ namespace project_name
 #if DEBUG
             System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));
 #endif
-			
+
+			// setup a Scene so we have something to show
 			var newScene = new Scene();
             newScene.addRenderer(new DefaultRenderer());
 
@@ -24,6 +26,11 @@ namespace project_name
                 .addComponent(new Nez.Sprites.Sprite(logo));
 
             scene = newScene;
+            
+            // optionally render Nez in an ImGui window
+			var imGuiManager = new ImGuiManager();
+			Core.registerGlobalManager( imGuiManager );
+			imGuiManager.setEnabled( true );
         }
     }
 }

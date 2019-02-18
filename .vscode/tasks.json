@@ -12,7 +12,7 @@
         {
             "label": "Clean Project",
             "type": "shell",
-            "command": "msbuild /t:clean /p:configuration=Debug ; msbuild /t:clean /p:configuration=Release",
+            "command": "msbuild project_name /t:clean /p:configuration=Debug ; msbuild project_name /t:clean /p:configuration=Release",
             "group": "build",
             "problemMatcher": "$msCompile",
         },
@@ -22,6 +22,7 @@
             "type": "shell",
             "command": "msbuild",
             "args": [
+                "project_name",
                 "/p:configuration=Debug",
                 "/t:build"
             ],
@@ -35,6 +36,7 @@
             "type": "shell",
             "command": "msbuild",
             "args": [
+                "project_name",
                 "/p:configuration=Release",
                 "/t:build"
             ],
@@ -47,13 +49,13 @@
             "type": "shell",
             "group": "build",
             "osx":{
-                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/bin/Debug/osx/ mono ${workspaceFolder}/bin/Debug/project_name.exe"
+                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/project_name/bin/Debug/osx/ mono ${workspaceFolder}/project_name/bin/Debug/project_name.exe"
             },
             "windows":{
                 "command": "cmd",
                 "args": [
                     "/k",
-                    "${workspaceFolder}/bin/Debug/project_name.exe"
+                    "${workspaceFolder}/project_name/bin/Debug/project_name.exe"
                 ]
             },
             "dependsOn": "Build (Debug)",
@@ -65,13 +67,13 @@
             "type": "shell",
             "group": "build",
             "osx":{
-                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/bin/Release/osx/ mono ${workspaceFolder}/bin/Release/project_name.exe"
+                "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/project_name/bin/Release/osx/ mono ${workspaceFolder}/project_name/bin/Release/project_name.exe"
             },
             "windows":{
                 "command": "cmd",
                 "args": [
                     "/k",
-                    "${workspaceFolder}/bin/Release/project_name.exe"
+                    "${workspaceFolder}/project_name/bin/Release/project_name.exe"
                 ]
             },
             "dependsOn": "Build (Release)",
@@ -95,9 +97,9 @@
             "label": "Build Content",
             "type": "shell",
             "group": "build",
-            "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb",
+            "command": "msbuild /t:BuildContent",
             "options": {
-                "cwd": "${workspaceFolder}/CompiledContent"
+                "cwd": "${workspaceFolder}/project_name"
             },
             "problemMatcher": "$msCompile"
         },
@@ -108,7 +110,7 @@
             "group": "build",
             "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb -r",
             "options": {
-                "cwd": "${workspaceFolder}/CompiledContent"
+                "cwd": "${workspaceFolder}/project_name/CompiledContent"
             },
             "problemMatcher": "$msCompile"
         },
@@ -117,7 +119,7 @@
             "label": "Open Pipeline Tool",
             "type": "shell",
             "group": "build",
-            "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline",
+            "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/project_name/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline",
             "problemMatcher": "$msCompile"
         },
 		

@@ -6,6 +6,7 @@
 
 printf "Starting build process...\n"
 
+cd project_name
 for file in `find ./Content/** -name "*.fx"` ;
 do
     # Hush, wine...
