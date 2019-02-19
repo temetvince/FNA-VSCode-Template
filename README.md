@@ -3,25 +3,27 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 
 
 ## Features ##
-- Super simple setup scripts that download and install Nez, FNA and its native libraries for you
+- Super simple setup scripts that downloads and installs Nez, FNA and its native libraries for you
 - Boilerplate project already included -- no need to wrestle with MSBuild configurations or writing yet another Game1 class
-- Visual Studio Code tasks for building and running your game, cleaning/restoring your project, compiling .fx files and building content with the MonoGame Pipeline tool
+- Visual Studio Code tasks for building and running your game, compiling T4 templates, cleaning/restoring your project, compiling .fx files and building content with the MonoGame Pipeline tool
 - In-editor debugging support with the Mono Debugger
 
 
 ## Prerequisites ##
 - [Visual Studio Code](https://code.visualstudio.com)
   - [Mono Debugger Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) (required for macOS debugging)
-- [Git](https://git-scm.com)
-- [Microsoft DirectX SDK (June 2010)](https://www.microsoft.com/en-us/download/details.aspx?id=6812) (required for building effects -- on Mac, [you can use Wine to run this](https://github.com/AndrewRussellNet/FNA-Template#linuxmacos-installing-the-directx-sdk-on-wine))
+- (optional)[.NET Core](https://dotnet.microsoft.com/download) (required for compiling T4 templates)
+- (optional)[Microsoft DirectX SDK (June 2010)](https://www.microsoft.com/en-us/download/details.aspx?id=6812) (required for building effects, [you can use Wine to run this](https://github.com/AndrewRussellNet/FNA-Template#linuxmacos-installing-the-directx-sdk-on-wine))
 
 
 ## Setup Instructions ##
 1. Download and unzip the ZIP archive (don't clone the repo!)
-2. Run `./getFNA.sh` (macOS) to download the latest Nez, FNA and fnalibs to the directory. You can run this script again if you want to update either FNA or the fnalibs at a later point. If you get missing DLL errors when running in Visual Studio copy the FNA libs into your `/usr/local/lib` folder. With Visual Studio Code `DYLD_LIBRARY_PATH` is set automatically so it won't show the DLL not found error. Nez is setup as a submodule so you can update it in the normal fashion.
-3. Open the root folder that contains the .sln file in Visual Studio Code or the .sln file directly in Visual Studio
+2. Run `./getFNA.sh` (macOS) to download the latest Nez, FNA and fnalibs to the directory. You can run this script again if you want to update either FNA or the fnalibs at a later point.
+3. Open the root folder that contains the .sln file in Visual Studio Code or the .sln file directly in Visual Studio. Note that only Visual Studio Code has an effect builder command.
 
-That's it! Now you're ready to build and run the base project. When developing, raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
+That's it! Now you're ready to build and run the base project. If you get missing DLL errors (pointing at SDL) when running in Visual Studio copy the FNA libs into your `/usr/local/lib` folder. With Visual Studio Code, `DYLD_LIBRARY_PATH` is set automatically so it won't run into the DLL not found error. Nez is setup as a submodule so you can update it in the normal fashion.
+
+When developing, raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
 
 The setup process will also init a git repo for you with Nez added as a submodule.
 
