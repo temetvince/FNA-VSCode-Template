@@ -9,7 +9,7 @@
             "type": "mono",
             "request": "launch",
             "program": "${workspaceFolder}/project_name/bin/Debug/project_name.exe",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/project_name",
             "preLaunchTask": "Build (Debug)",
             "osx":{
                 "env": {
