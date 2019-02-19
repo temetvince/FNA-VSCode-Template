@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Nez;
 using Nez.ImGuiTools;
 
@@ -7,11 +9,16 @@ namespace project_name
     {
         public override void initialize()
         {
-            setDesignResolution( Screen.width, Screen.height, Scene.SceneResolutionPolicy.None );
+            setDesignResolution(Screen.width, Screen.height, Scene.SceneResolutionPolicy.None);
 
             addRenderer(new DefaultRenderer());
 
-            var logo = content.Load<Microsoft.Xna.Framework.Graphics.Texture2D>("nez-logo-black");
+            createEntity("demo imgui draw commands")
+                .setPosition(new Vector2(150, 150))
+                .addComponent<DemoComponent>()
+                .addComponent(new PrototypeSprite(20, 20));
+
+            var logo = content.Load<Texture2D>("nez-logo-black");
             createEntity("logo")
                 .setPosition(Screen.center)
                 .addComponent(new Nez.Sprites.Sprite(logo));
