@@ -10,7 +10,7 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 
 
 ## Prerequisites ##
-- [Visual Studio Code](https://code.visualstudio.com)
+- [Visual Studio Code](https://code.visualstudio.com) or [Visual Studio](https://visualstudio.microsoft.com/) (recommended to use Visual Studio Code because it has some custom tasks but either will work fine)
   - [Mono Debugger Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) (required for macOS debugging)
 - [MonoGame](http://www.monogame.net/downloads/) (required for compiling content with the Pipeline tool)
 - (optional) [.NET Core](https://dotnet.microsoft.com/download) (required for compiling T4 templates)
