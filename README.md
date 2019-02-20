@@ -33,6 +33,7 @@ If you want to see the output of `Debug.*` calls in the VS Code Debug Console, y
 
 ## Build Tasks ##
 - **Restore Project:** Restores the .csproj. Run it again whenever you change the .csproj file.
+- **Restore and Rebuild Nez:** Fetches the latest version of Nez from GitHub, restores and rebuilds Nez
 - **Build (Debug/Release):** Builds the project with the specified configuration but does not run it. This also runs MGCB.exe, copies over everything in the `Content` and `CompiledContent` subdirectories and the fnalibs.
 - **Build and Run (Debug/Release):** Builds and runs the project. On MacOS, it runs the output with Mono. On Windows, it runs the output with .NET Framework.
 - **Clean Project:** Cleans the output directories and all their subdirectories.

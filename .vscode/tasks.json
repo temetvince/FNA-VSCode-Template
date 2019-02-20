@@ -8,6 +8,28 @@
             "group": "build",
             "problemMatcher": "$msCompile"
         },
+		
+        {
+            // this does a bunch of stuff:
+            // - update submodules to lastest (fetch latest Nez version)
+            // - restore Nez.sln (nuget restore to get latest packages)
+            // - build Nez.sln (build to get latest Pipeline DLLs)
+            // - restore Nez.FNA.sln (nuget restore Nez.FNA)
+            // - build Nez.FNA.sln (build Nez.FNA)
+            "label": "Update, Restore and Rebuild Nez",
+            "type": "shell",
+            "command": "git submodule foreach --recursive git pull ; msbuild Nez/Nez.sln /t:restore; msbuild Nez/Nez.sln ; msbuild Nez/Nez.FNA.sln /t:restore ; msbuild Nez/Nez.FNA.sln",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+        },
 
         {
             "label": "Clean Project",
