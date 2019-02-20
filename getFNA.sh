@@ -162,9 +162,9 @@ git submodule update
 
 command -v pbcopy > /dev/null 2>&1
 if [ ! $? -eq 0 ]; then
-	printf "\n\nManually run the following command:\n\nnuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName\n\n"
+	printf "\n\nManually run the following command:\n\nnuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName && msbuild $newProjectName.sln\n\n"
 else
-	echo "nuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName" | pbcopy
+	echo "nuget restore Nez/Nez.sln && msbuild Nez/Nez.sln && msbuild /t:restore $newProjectName && msbuild $newProjectName.sln" | pbcopy
 	echo ""
 	echo "A build command was copied to your clipboard. Paste and run it now."
 	echo ""
