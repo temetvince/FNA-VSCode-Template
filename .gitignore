@@ -8,4 +8,5 @@ project_name/obj
 project_name/CompiledContent/bin
 project_name/CompiledContent/obj
 .mgstats
-
+imgui.ini
+imgui_log.txt
