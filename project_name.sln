@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez.FNA", "Nez\Nez.Portable
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez.FNA.ImGui", "Nez\Nez.ImGui\Nez.FNA.ImGui.csproj", "{16DA6D66-4DFD-46D4-A367-C02B48B80CAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nez.FNA.Persistence", "Nez\Nez.Persistence\Nez.FNA.Persistence.csproj", "{26DA6D66-4DFD-46D4-A367-C02B48B80CAA}"
+EndProject
 
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -20,6 +22,8 @@ Global
 		{11A5855C-B12C-4F8D-B935-56F3D0B671C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16DA6D66-4DFD-46D4-A367-C02B48B80CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16DA6D66-4DFD-46D4-A367-C02B48B80CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26DA6D66-4DFD-46D4-A367-C02B48B80CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26DA6D66-4DFD-46D4-A367-C02B48B80CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
