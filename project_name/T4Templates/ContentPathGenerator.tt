@@ -20,29 +20,28 @@ namespace Nez
 	// loop through all of our sourceFolders
 	foreach( var sourceFolder in sourceFolders )
 	{
-		var directories = Directory.GetDirectories( sourceFolder );
+		WriteLine( $"\t\t// folder: {sourceFolder}" );
+
+		// handle any files in the root sourceFolder
+		printContentFiles( sourceFolder, 2, sourceFolder );
+
 		// loop through all the directories in our sourceFolder
+		var directories = Directory.GetDirectories( sourceFolder );
 		foreach( var dir in directories )
 		{
 			var dirName = new DirectoryInfo( dir ).Name.ToLower();
 			if( dirName == "bin" || dirName == "obj" || dirName == "content" )
 				continue;
 
-			// dont delve into directories that don't contan xnb files
-			var xnbFiles = Directory.GetFiles( dir, "*.xnb", SearchOption.AllDirectories );
-			if( xnbFiles.Length == 0 )
+			// dont delve into directories that don't contan xnb files if this is the CompiledContent folder
+			if( !shouldTraverseSubfolders( dir ) )
 				continue;
 
 			// start off the recursive directory printing
 			printDirectoryClass( dir, 2, sourceFolder );
 		}
-
-		// handle any files in the root sourceFolder
-		printContentFiles( sourceFolder, 2, sourceFolder );
 	}
-
 #>
-
     }
 }
 
@@ -61,6 +60,16 @@ namespace Nez
 		"protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this",
 		"throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while"
 	};
+
+	bool shouldTraverseSubfolders( string path )
+	{
+		if( !path.Contains( "/bin/" ) )
+		{
+			return true;
+		}
+		
+		return Directory.GetFiles( path, "*.xnb", SearchOption.AllDirectories ).Length > 0;
+	}
 
 	// recursively creates a class for each directory
 	void printDirectoryClass( string dir, int depth, string sourceFolder )
@@ -93,7 +102,14 @@ namespace Nez
 			// clear out all of the path up to the sourceFolder so we get just the relative path to the Content folder
 			var finalPath = file.Substring( file.IndexOf( sourceFolder ) + sourceFolder.Length );
 			var fileInfo = new FileInfo( file );
-			var fileName = fileInfo.Name.Replace( ".xnb", string.Empty );
+			var fileName = fileInfo.Name;
+
+			// clean the extension
+			foreach( var extension in fileExtensionsToCopy )
+			{
+				fileName = fileName.Replace( extension, string.Empty );
+			}
+
 			var className = generateClassName( fileName, false );
 
 			if( finalPath[0] == '/' || finalPath[0] == '\\' )
@@ -104,6 +120,11 @@ namespace Nez
 				className = className.Insert( 0, "@" );
 
 			WriteLine( "{0}public const string {1} = @\"{2}\";", firstIndent, className, finalPath );
+		}
+
+		if( files.Count() > 0 )
+		{
+			WriteLine( "" );
 		}
 	}
 
