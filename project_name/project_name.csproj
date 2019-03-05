@@ -65,23 +65,23 @@
     
     <!-- Copy fnalib directories to output -->
     <ItemGroup>
-        <Content Include="..\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
+        <Content Include="..\fnalibs\x86\**\*.*" Visible="false" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
             <Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
+        <Content Include="..\fnalibs\x64\**\*.*" Visible="false" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
             <Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\fnalibs\osx\**\*.*" Condition="'$(OS)' != 'Windows_NT' AND $(IsOSX) == 'true'">
+        <Content Include="..\fnalibs\osx\**\*.*" Visible="false" Condition="'$(OS)' != 'Windows_NT' AND $(IsOSX) == 'true'">
             <Link>osx\%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\fnalibs\lib\**\*.*" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
+        <Content Include="..\fnalibs\lib\**\*.*" Visible="false" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
             <Link>lib\%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\fnalibs\lib64\**\*.*" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
+        <Content Include="..\fnalibs\lib64\**\*.*" Visible="false" Condition="'$(OS)' != 'Windows_NT' AND $(IsLinux) == 'true'">
             <Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
