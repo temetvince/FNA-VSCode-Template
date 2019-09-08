@@ -8,19 +8,19 @@ namespace project_name
     {
         int _buttonClickCounter;
 
-        public override void onAddedToEntity()
+        public override void OnAddedToEntity()
         {
             // register with the ImGuiMangaer letting it know we want to render some IMGUI
-            Core.getGlobalManager<ImGuiManager>().registerDrawCommand(imGuiDraw);
+            Core.GetGlobalManager<ImGuiManager>().RegisterDrawCommand(ImGuiDraw);
         }
 
-        public override void onRemovedFromEntity()
+        public override void OnRemovedFromEntity()
         {
             // remove ourselves when we are removed from the Scene
-            Core.getGlobalManager<ImGuiManager>().unregisterDrawCommand(imGuiDraw);
+            Core.GetGlobalManager<ImGuiManager>().UnregisterDrawCommand(ImGuiDraw);
         }
 
-        void imGuiDraw()
+        void ImGuiDraw()
         {
             // do your actual drawing here
             ImGui.Begin("Your ImGui Window", ImGuiWindowFlags.AlwaysAutoResize);            

@@ -16,11 +16,11 @@ namespace project_name
             System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));
 #endif
 
-            scene = new DefaultScene();
+            Scene = new DefaultScene();
             
             // optionally render Nez in an ImGui window
 			var imGuiManager = new ImGuiManager();
-			Core.registerGlobalManager(imGuiManager);
+			Core.RegisterGlobalManager(imGuiManager);
         }
     }
 }
