@@ -22,11 +22,11 @@
             "name": "Launch Without Building",
             "type": "mono",
             "request": "launch",
-            "program": "${workspaceFolder}/Fook/bin/Debug/project_name.exe",
+            "program": "${workspaceFolder}/project_name/bin/Debug/project_name.exe",
             "cwd": "${workspaceFolder}",
             "osx":{
                 "env": {
-                    "DYLD_LIBRARY_PATH": "${workspaceFolder}/Fook/bin/Debug/osx/"
+                    "DYLD_LIBRARY_PATH": "${workspaceFolder}/project_name/bin/Debug/osx/"
                 },
             }
         },
