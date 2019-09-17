@@ -12,6 +12,9 @@ namespace project_name
         {
             base.Initialize();
 			
+			// uncomment this line for scaled pixel art games
+			//Environment.SetEnvironmentVariable("FNA_OPENGL_BACKBUFFER_SCALE_NEAREST", "1");
+			
 #if DEBUG
             System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));
 #endif
