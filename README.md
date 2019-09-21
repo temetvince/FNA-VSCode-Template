@@ -24,11 +24,11 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 
 That's it! Now you're ready to build and run the base project. If you get missing DLL errors (pointing at SDL) when running in Visual Studio copy the FNA libs into your `/usr/local/lib` folder. With Visual Studio Code, `DYLD_LIBRARY_PATH` is set automatically so it won't run into the DLL not found error. Nez is setup as a submodule so you can update it in the normal fashion.
 
-When developing, raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
+When developing, raw content (files not processed by the Pipeline tool) should be placed in the `Content` folder's subfolders and anything that needs processing should go in the `CompiledContent` folder and added to the Pipeline tool.
 
 The setup process will also init a git repo for you with Nez added as a submodule.
 
-If you want to see the output of `Debug.*` calls in the VS Code Debug Console, you have to install a listener by adding this somewhere in your code (Game1 by default has one for you): `System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));`
+If you want to see the output of `Debug.*` calls in the VS Code Debug Console, you have to install a listener by adding this somewhere in your code (Game1 by default has one for you): `System.Diagnostics.Debug.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(System.Console.Out));` Pixel art games should also uncomment a line in the Game1.cs file setting the `FNA_OPENGL_BACKBUFFER_SCALE_NEAREST` environment variable when using FNA.
 
 
 ## Build Tasks ##
