@@ -16,7 +16,7 @@
             // - clean, restore and rebuild Nez.FNA.sln (nuget restore Nez.FNA)
             "label": "Update, Restore and Rebuild Nez",
             "type": "shell",
-            "command": "git submodule foreach --recursive git pull && msbuild Nez/Nez.sln '/t:clean;restore;build' && msbuild Nez/Nez.FNA.sln '/t:clean;restore;build'",
+            "command": "git submodule foreach --recursive git pull && msbuild Nez/Nez.sln /t:clean /t:restore && msbuild Nez/Nez.FNA.sln /t:clean /t:restore",
             "group": "build",
             "problemMatcher": "$msCompile",
             "presentation": {
@@ -32,7 +32,7 @@
         {
             "label": "Clean Project",
             "type": "shell",
-            "command": "msbuild project_name /t:clean /p:configuration=Debug ; msbuild project_name /t:clean /p:configuration=Release",
+            "command": "msbuild project_name /t:clean /p:configuration=Debug && msbuild project_name /t:clean /p:configuration=Release",
             "group": "build",
             "problemMatcher": "$msCompile",
         },
@@ -42,8 +42,9 @@
             "type": "shell",
             "command": "msbuild",
             "args": [
-                "project_name",
+                "project_name.sln",
                 "/p:configuration=Debug",
+                "/p:platform=Any CPU",
                 "/t:build"
             ],
             "group": "build",
@@ -56,8 +57,9 @@
             "type": "shell",
             "command": "msbuild",
             "args": [
-                "project_name",
+                "project_name.sln",
                 "/p:configuration=Release",
+                "/p:platform=Any CPU",
                 "/t:build"
             ],
             "group": "build",
@@ -72,9 +74,9 @@
                 "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/project_name/bin/Debug/osx/ mono ${workspaceFolder}/project_name/bin/Debug/project_name.exe"
             },
             "windows":{
-                "command": "cmd",
+                "command": "start",
                 "args": [
-                    "/k",
+                    "/wait",
                     "${workspaceFolder}/project_name/bin/Debug/project_name.exe"
                 ]
             },
@@ -90,9 +92,9 @@
                 "command": "DYLD_LIBRARY_PATH=${workspaceFolder}/project_name/bin/Release/osx/ mono ${workspaceFolder}/project_name/bin/Release/project_name.exe"
             },
             "windows":{
-                "command": "cmd",
+                "command": "start",
                 "args": [
-                    "/k",
+                    "/wait",
                     "${workspaceFolder}/project_name/bin/Release/project_name.exe"
                 ]
             },
@@ -108,7 +110,11 @@
                 "command": "${workspaceFolder}/.vscode/buildEffects.sh"
             },
             "windows":{
-                "command": "& ${workspaceFolder}/.vscode/buildEffects.ps1"
+                "command": "powershell",
+                "args": [
+                    "-File",
+                    "${workspaceFolder}/.vscode/buildEffects.ps1"
+                ],
             },
             "problemMatcher": "$msCompile"
         },
@@ -128,7 +134,16 @@
             "label": "Force Build Content",
             "type": "shell",
             "group": "build",
-            "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb -r",
+            "osx": {
+                "command": "mono /Applications/Pipeline.app/Contents/MonoBundle/MGCB.exe /@:Content.mgcb -r",
+            },
+            "windows": { 
+                "command":"C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe", 
+                "args": [
+                    "/@:Content.mgcb",
+                    "-r"
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}/project_name/CompiledContent"
             },
@@ -139,14 +154,28 @@
             "label": "Open Pipeline Tool",
             "type": "shell",
             "group": "build",
-            "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/project_name/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline",
+            "osx": {
+                "command": "export MONOGAME_PIPELINE_PROJECT=${workspaceFolder}/project_name/CompiledContent/Content.mgcb && /Applications/Pipeline.app/Contents/MacOS/Pipeline"
+            },
+            "windows": {
+                "command": "${workspaceFolder}/project_name/CompiledContent/Content.mgcb"
+            },
             "problemMatcher": "$msCompile"
         },
 		
         {
             "label": "Process T4 Templates",
             "type": "shell",
-            "command": "${workspaceFolder}/.vscode/processT4Templates.sh",
+            "osx": {
+                "command": "${workspaceFolder}/.vscode/processT4Templates.sh"
+            },
+            "windows": {
+                "command": "powershell",
+                "args": [ 
+                    "-File",
+                    "${workspaceFolder}/.vscode/processT4Templates.ps1" 
+                ]
+            },
             "group": "build",
             "problemMatcher": "$msCompile",
         },
