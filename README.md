@@ -14,7 +14,7 @@ Start new FNA projects with Nez quickly and easily with handy setup scripts, a v
 - [Mono Debugger Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) (required for macOS debugging)
 - [MonoGame](http://www.monogame.net/downloads/) (required for compiling content with the Pipeline tool)
 - (optional) [.NET Core](https://dotnet.microsoft.com/download) (required for compiling T4 templates)
-- (optional) [Microsoft DirectX SDK (June 2010)](https://www.microsoft.com/en-us/download/details.aspx?id=6812) (required for building effects, [you can use Wine to run this](https://github.com/AndrewRussellNet/FNA-Template#linuxmacos-installing-the-directx-sdk-on-wine))
+- (optional) [Microsoft DirectX SDK (June 2010)](https://www.microsoft.com/en-us/download/details.aspx?id=6812) (required for building effects, [you can use Wine to run this](WINE_INSTALL.md))
 - (windows only) [7zip](https://www.7-zip.org) (if intending to use fnalibs, the filetype is unsupported for windows and requires 7zip to be installed to decompress/unzip)
 - (windows only) [Build tools for Visua Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)(these build tools are required for all Visual Studio Code build tasks. if you intend to use the full Visual Studio, these are already included. be sure to include .NET Core Build Tools in the installation)
 
