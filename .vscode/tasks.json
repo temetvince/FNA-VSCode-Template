@@ -76,7 +76,6 @@
             "windows":{
                 "command": "start",
                 "args": [
-                    "/wait",
                     "${workspaceFolder}/project_name/bin/Debug/project_name.exe"
                 ]
             },
@@ -94,7 +93,6 @@
             "windows":{
                 "command": "start",
                 "args": [
-                    "/wait",
                     "${workspaceFolder}/project_name/bin/Release/project_name.exe"
                 ]
             },
