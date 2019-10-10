@@ -40,7 +40,7 @@ function downloadFNA()
 {
     checkGit
 	echo "Downloading FNA..."
-	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --recursive
+	git -C $MY_DIR clone https://github.com/FNA-XNA/FNA.git --depth 1 --recursive
 	if [ $? -eq 0 ]; then
 		echo "Finished downloading!"
 	else
@@ -155,10 +155,10 @@ mv project_name/project_name.csproj.user "project_name/$newProjectName.csproj.us
 mv project_name "$newProjectName"
 
 git init
-git submodule add https://github.com/prime31/Nez.git
+git submodule add --depth 1 https://github.com/prime31/Nez.git
 cd Nez
 git submodule init
-git submodule update
+git submodule update --depth 1
 
 command -v pbcopy > /dev/null 2>&1
 if [ ! $? -eq 0 ]; then
