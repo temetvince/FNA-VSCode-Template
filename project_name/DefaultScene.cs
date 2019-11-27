@@ -14,7 +14,7 @@ namespace project_name
             CreateEntity("demo imgui draw commands")
                 .SetPosition(new Vector2(150, 150))
                 .AddComponent<DemoComponent>()
-                .AddComponent(new PrototypeSprite(20, 20));
+                .AddComponent(new PrototypeSpriteRenderer(20, 20));
 
             var logo = Content.Load<Texture2D>("nez-logo-black");
             CreateEntity("logo")
