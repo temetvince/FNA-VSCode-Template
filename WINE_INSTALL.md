@@ -17,4 +17,4 @@ Once Wine and winetricks are installed:
 - Setup Wine with `winecfg`
 - Install the DirectX SDK with `winetricks dxsdk_jun2010`
 
-**Alternative method:** Instead of installing the DirectX SDK, you can place a copy of `fxc.exe` from the DirectX SDK in the `build/tools` directory. Then use `winetricks d3dcompiler_43` to install the required DLL from the DirectX redistributable (this is a smaller download than the SDK). See `BuildShaders.targets` for details. The same fallback also works on Windows.
+**Alternative method (works on Catalina):** Instead of installing the DirectX SDK, you can place a copy of `fxc.exe` from the DirectX SDK in the `build/tools` directory. Then use `env WINE=/usr/local/bin/wine64 sh winetricks d3dcompiler_43` to install the required DLL from the DirectX redistributable (this is a smaller download than the SDK).
