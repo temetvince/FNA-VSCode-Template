@@ -43,6 +43,7 @@
             "command": "msbuild",
             "args": [
                 "project_name.sln",
+		"/property:GenerateTargetFrameworkAttribute=false",
                 "/p:configuration=Debug",
                 "/p:platform=Any CPU",
                 "/t:build"
@@ -58,6 +59,7 @@
             "command": "msbuild",
             "args": [
                 "project_name.sln",
+		"/property:GenerateTargetFrameworkAttribute=false",
                 "/p:configuration=Release",
                 "/p:platform=Any CPU",
                 "/t:build"
