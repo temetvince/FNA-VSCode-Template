@@ -8,7 +8,7 @@ To install Wine and winetricks on **Linux**, refer to your distribution's packag
 To install Wine and winetricks on **macOS**:
 
 - Install Homebrew from https://brew.sh/
-- Install wine with `brew install wine`
+- Install wine with `brew install rew cask install wine-stable`
 - Install winetricks with `brew install winetricks`
 - (If you already have these installed, update with: `brew update`, `brew upgrade wine`, `brew upgrade winetricks`)
 
