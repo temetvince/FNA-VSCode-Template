@@ -11,6 +11,7 @@
         "**/.[^v]*": true, // hide any files that start with a '.' but keep the .vscode folder
         ".vs": true, // Visual Studio settings
         "getFNA.*": true,
+        "getNez.*": true,
         "imgui.ini": true,
         "MonoGameContent.targets": true,
         "**/obj": true,
